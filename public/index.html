@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>루나타로</title>
+  <meta name="description" content="터치 몇 번으로 오늘의 타로를 뽑아보세요." />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 배경 연출 (docs/05 §1) — 항상 뒤에 깔려 있음 -->
+    <div class="bg" aria-hidden="true">
+      <div class="bg-stars" id="bgStars"></div>
+      <div class="bg-glow"></div>
+    </div>
+
+    <main id="screens">
+      <!-- 1. 인트로 -->
+      <section class="screen screen-intro" data-screen="intro" id="screen-intro">
+        <div class="intro-sigil" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="sigil-svg">
+            <circle cx="60" cy="60" r="46" class="sigil-ring" />
+            <path d="M60 26 A34 34 0 1 0 60 94 A26 26 0 1 1 60 26 Z" class="sigil-moon" />
+            <g class="sigil-stars">
+              <circle cx="92" cy="38" r="2.2" />
+              <circle cx="100" cy="60" r="1.4" />
+              <circle cx="88" cy="82" r="1.8" />
+            </g>
+          </svg>
+        </div>
+        <h1 class="site-title" id="siteTitle">루나타로</h1>
+        <p class="site-subtitle">오늘의 마음을 카드에게 물어보세요</p>
+        <button class="intro-start" id="introStartBtn" type="button">
+          <span>터치하여 시작하기</span>
+          <span class="intro-arrow" aria-hidden="true"></span>
+        </button>
+        <div class="intro-links">
+          <button class="intro-history-link" id="openHistoryBtn" type="button">지난 리딩 보기</button>
+          <button class="intro-history-link" id="openDictionaryBtn" type="button">카드 사전</button>
+        </div>
+      </section>
+
+      <!-- 2. 카드 덱 (스프레드 선택 → 질문 입력은 바텀시트로 처리) -->
+      <section class="screen screen-deck" data-screen="deck" id="screen-deck" hidden>
+        <header class="screen-header">
+          <button class="icon-btn" id="deckBackBtn" type="button" aria-label="처음으로">‹</button>
+          <div class="screen-header-titles">
+            <h2 id="deckSpreadName">&nbsp;</h2>
+            <p id="deckHint">카드를 한 장씩 터치해서 뒤집어보세요</p>
+          </div>
+        </header>
+        <div class="card-row" id="cardRow" role="list"></div>
+      </section>
+
+      <!-- 3. 결과 -->
+      <section class="screen screen-result" data-screen="result" id="screen-result" hidden>
+        <header class="screen-header">
+          <button class="icon-btn" id="resultBackBtn" type="button" aria-label="처음으로">‹</button>
+          <div class="screen-header-titles">
+            <h2>결과</h2>
+          </div>
+        </header>
+        <div class="result-cards" id="resultCards" role="list"></div>
+        <div class="result-interpretation" id="resultInterpretation" aria-live="polite"></div>
+        <p class="disclaimer" id="resultDisclaimer"></p>
+        <div class="result-actions">
+          <button class="cta-pill cta-outline" id="openDictionaryFromResultBtn" type="button">카드 의미 자세히 보기</button>
+          <button class="cta-pill" id="restartBtn" type="button">다시 뽑기</button>
+        </div>
+      </section>
+
+      <!-- 4. 카드 사전 -->
+      <section class="screen screen-dictionary" data-screen="dictionary" id="screen-dictionary" hidden>
+        <header class="screen-header">
+          <button class="icon-btn" id="dictionaryCloseBtn" type="button" aria-label="닫기">‹</button>
+          <div class="screen-header-titles">
+            <h2>카드 사전</h2>
+            <p>78장의 카드를 눌러 의미를 확인해보세요</p>
+          </div>
+        </header>
+        <div class="filter-pills" id="filterPills" role="tablist"></div>
+        <div class="card-grid" id="cardGrid" role="list"></div>
+      </section>
+    </main>
+
+    <!-- 재사용 바텀시트 (docs/05 §4) -->
+    <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+    <div class="bottom-sheet" id="bottomSheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-handle" id="sheetHandle" aria-hidden="true"></div>
+      <div class="sheet-body" id="sheetBody"></div>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay" hidden>
+      <div class="loading-sigil" aria-hidden="true"></div>
+      <p id="loadingText">카드를 살피는 중...</p>
+    </div>
+
+    <!-- 오류 토스트 -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="scripts/api-client.js"></script>
+  <script src="scripts/background-animation.js"></script>
+  <script src="scripts/card-deck.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

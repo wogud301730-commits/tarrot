@@ -1,0 +1,16 @@
+[
+  {
+    "code": "single",
+    "name_ko": "1장 스프레드",
+    "description": "오늘 하루나 지금 이 순간에 대한 짧고 명확한 메시지를 받고 싶을 때 어울리는 가장 간단한 스프레드입니다.",
+    "position_count": 1,
+    "position_labels": ["오늘의 카드"]
+  },
+  {
+    "code": "three_card",
+    "name_ko": "3장 스프레드",
+    "description": "과거·현재·미래의 흐름을 통해 지금 겪고 있는 상황의 맥락을 조금 더 폭넓게 살펴보고 싶을 때 어울리는 스프레드입니다.",
+    "position_count": 3,
+    "position_labels": ["과거", "현재", "미래"]
+  }
+]
