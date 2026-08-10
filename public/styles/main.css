@@ -18,6 +18,13 @@
   box-sizing: border-box;
 }
 
+/* .screen / .loading-overlay가 display:flex를 직접 지정하고 있어서, 그대로 두면
+   해당 규칙이 hidden 속성의 UA 기본 스타일(display:none)보다 우선 적용되어
+   hidden=true여도 화면이 계속 보이는 버그가 생긴다. 항상 hidden이 이기도록 고정한다. */
+[hidden] {
+  display: none !important;
+}
+
 html,
 body {
   margin: 0;
